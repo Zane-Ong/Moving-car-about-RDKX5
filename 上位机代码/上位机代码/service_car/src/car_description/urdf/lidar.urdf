@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="four_wheeled_robot">
+
+    <xacro:property name="lidar2link_height" value="0.195"/> <!-- 雷达离地高度 195mm -->
+
+  <link
+    name="laser">
+    <inertial>
+      <origin
+        xyz="2.58655077059347E-05 9.87213808632172E-05 -0.0175251741349158"
+        rpy="0 0 0" />
+      <mass
+        value="0.0384696767042416" />
+      <inertia
+        ixx="7.04823646497064E-06"
+        ixy="-1.60337109920922E-07"
+        ixz="9.84412023285342E-09"
+        iyy="7.10632359919618E-06"
+        iyz="3.98837665675289E-08"
+        izz="7.61196038394082E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://yahboomcar_description/meshes/lidar_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.196078431372549 0.196078431372549 0.196078431372549 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://learning_urdf/meshes/lidar_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="lidar_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0.03"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="laser" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+</robot>

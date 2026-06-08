@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="four_wheel_car">
+    <!-- 定义参数 -->
+    <xacro:property name="PI" value="3.1415927" />
+    <xacro:property name="chassis_width" value="0.52"/>   <!-- 底盘宽度 (m) -->
+    <xacro:property name="chassis_length" value="0.62"/>  <!-- 底盘长度 (m) -->
+    <xacro:property name="chassis_height" value="0.06"/>  <!-- 底盘高度 (m) -->
+    <xacro:property name="chassis_ground_clearance" value="0.135"/> <!-- 离地高度 (m) -->
+    <xacro:property name="wheel_radius" value="0.0935"/>  <!-- 轮子半径 (m) -->
+    <xacro:property name="wheel_width" value="0.052"/>    <!-- 轮子宽度 (m) -->
+    <xacro:property name="wheel_offset_x" value="${chassis_length/2-0.09}"/>  <!-- 前后轮到中心的距离 (m) -->
+    <xacro:property name="wheel_offset_y" value="${chassis_width/2+0.059}"/>  <!-- 左右轮到中心的距离 (m) -->
+    <xacro:property name="wheel_offset_z" value="${chassis_ground_clearance+chassis_height/2-wheel_radius}"/>  <!-- 左右轮到中心的距离 (m) -->
+
+    <!-- 定义TF基座 -->
+    <link name="base_footprint">
+        <visual>
+        <geometry>
+            <sphere radius="0.001"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="base_footprint_color">
+            <color rgba="0 0 1 1"/>
+        </material>
+        </visual>
+    </link>
+    <joint name="base_footprint_joint" type="fixed">
+        <parent link="base_footprint"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 ${chassis_ground_clearance + chassis_height / 2}" rpy="0 0 0"/>
+    </joint>
+
+    <!-- 定义底盘 -->
+    <link name="base_link">
+        <visual>
+        <geometry>
+            <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="chassis_color">
+            <color rgba="0 0 1 1"/>
+        </material>
+        </visual>
+        <collision>
+        <geometry>
+            <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+        <inertial>
+        <mass value="10.0"/>
+        <inertia ixx="0.5" iyy="0.5" izz="0.5" ixy="0.0" ixz="0.0" iyz="0.0"/>
+        </inertial>
+    </link>
+
+    <!-- 轮子和关节 -->
+    <xacro:macro name="wheel" params="name x y z">
+        <!-- 轮子链接 -->
+        <link name="${name}_link">
+            <visual>
+                <geometry>
+                    <cylinder length="${wheel_width}" radius="${wheel_radius}"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="1.5708 0 0"/> <!-- 垂直于地面 -->
+                <material name="black">
+                    <color rgba="0 0 0 1"/>
+                </material>
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder length="${wheel_width}" radius="${wheel_radius}"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+            </collision>
+            <inertial>
+                <mass value="1"/> <!-- 假设每个轮子质量为1kg -->
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/> <!-- 简单假设惯性矩阵 -->
+            </inertial>
+        </link>
+
+        <!-- 轮子与底盘关节 -->
+        <joint name="${name}_joint" type="continuous">
+            <parent link="base_link"/>
+            <child link="${name}_link"/>
+            <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+            <axis xyz="0 1 0"/> <!-- 绕Y轴转动 -->
+            <dynamics damping="0.1" friction="0.1"/>
+        </joint>
+    </xacro:macro>
+
+    <!-- 前左轮 -->
+    <xacro:wheel name="front_left_wheel" x="${wheel_offset_x}" y="${wheel_offset_y}" z="-${wheel_offset_z}"/>
+    <!-- 前右轮 -->
+    <xacro:wheel name="front_right_wheel" x="${wheel_offset_x}" y="-${wheel_offset_y}" z="-${wheel_offset_z}"/>
+    <!-- 后左轮 -->
+    <xacro:wheel name="rear_left_wheel" x="-${wheel_offset_x}" y="${wheel_offset_y}" z="-${wheel_offset_z}"/>
+    <!-- 后右轮 -->
+    <xacro:wheel name="rear_right_wheel" x="-${wheel_offset_x}" y="-${wheel_offset_y}" z="-${wheel_offset_z}"/>
+
+</robot>

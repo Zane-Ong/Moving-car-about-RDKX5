@@ -1,0 +1,34 @@
+<root main_tree_to_execute="MainTree">
+    <BehaviorTree ID="MainTree">
+        <Sequence>
+            <SetBlackboard output_key="Goal_a" value="17.4;34.0;0.0;1.0" />
+            <SetBlackboard output_key="Goal_b" value="12.5;26.0;0.0;1.0" />
+            <Sequence>
+                <SubTree ID="MoveRobot" target="Goal_a" />
+                <AutodockClient action="start" />
+            <AutodockClient action="cancel" />
+            </Sequence>
+            
+             <Sequence>
+            <PublishTopic command="ros2 topic pub /lift_control std_msgs/msg/Int32 '{data: 1}' --rate 10 --times 20" />
+            <WaitNode/>
+            <StartUsbCam/>
+            <WaitNode/>
+            <PublishTopic command="ros2 topic pub /lift_control std_msgs/msg/Int32 '{data: -1}' --rate 10 --times 20" />
+       	    </Sequence>
+            
+            <Sequence>
+                <SubTree ID="MoveRobot" target="Goal_b" />
+                                <AutodockClient action="start" />
+            <AutodockClient action="cancel" />
+            </Sequence>
+        </Sequence>
+    </BehaviorTree>
+    
+    <BehaviorTree ID="MoveRobot">
+        <Sequence name="SetGoal">
+            <Nav2Client goal="{target}" />
+        </Sequence>
+    </BehaviorTree>
+</root>
+

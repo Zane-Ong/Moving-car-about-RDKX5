@@ -1,0 +1,14 @@
+<root main_tree_to_execute="MainTree">
+    <BehaviorTree ID="MainTree">
+        <Sequence>
+        
+        <PublishTopic command='ros2 topic pub /lift_control std_msgs/msg/Int32 "{data: 1}" --rate 10'/>
+        <WaitNode/>
+        <WaitNode/>
+        <StartUsbCam/>
+
+        </Sequence>
+    </BehaviorTree>
+</root>
+
+

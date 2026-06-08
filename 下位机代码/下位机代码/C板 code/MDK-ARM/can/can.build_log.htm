@@ -1,0 +1,120 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: μVision V5.24.2.0
+Copyright (C) 2017 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: 1 1719101482@qq.com, 1, LIC=----
+ 
+Tool Versions:
+Toolchain:       MDK-Lite  Version: 5.24.1
+Toolchain Path:  D:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 5 (build 528)
+Assembler:       Armasm.exe V5.06 update 5 (build 528)
+Linker/Locator:  ArmLink.exe V5.06 update 5 (build 528)
+Library Manager: ArmAr.exe V5.06 update 5 (build 528)
+Hex Converter:   FromElf.exe V5.06 update 5 (build 528)
+CPU DLL:         SARMCM3.DLL V5.24.1
+Dialog DLL:      DCM.DLL V1.16.0.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.1.0
+Dialog DLL:      TCM.DLL V1.32.0.0
+ 
+<h2>Project:</h2>
+D:\学习资料\项目\护工机器人资料\最新代码\14.CAN - 原版没加 - 副本\MDK-ARM\can.uvprojx
+Project File Date:  03/05/2025
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 5 (build 528)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'can'
+compiling main.c...
+../application/CAN_receive.h(100): warning:  #1295-D: Deprecated declaration CAN_cmd_init - give arg types
+  uint8_t CAN_cmd_init();
+../Src/main.c(103): warning:  #1295-D: Deprecated declaration max - give arg types
+  extern int max();
+../Src/main.c(104): warning:  #1295-D: Deprecated declaration lim - give arg types
+  extern int lim();
+../Src/main.c(105): warning:  #1295-D: Deprecated declaration limit - give arg types
+  extern int limit();
+../Src/main.c(380): warning:  #188-D: enumerated type mixed with another type
+  			HAL_GPIO_WritePin(
+PIOH,
+PIO_PIN_10,1);
+../Src/main.c(382): warning:  #188-D: enumerated type mixed with another type
+  			HAL_GPIO_WritePin(
+PIOH,
+PIO_PIN_10,0);
+../Src/main.c(397): warning:  #188-D: enumerated type mixed with another type
+  			HAL_GPIO_WritePin(
+PIOH,
+PIO_PIN_10,1);
+../Src/main.c(399): warning:  #188-D: enumerated type mixed with another type
+  			HAL_GPIO_WritePin(
+PIOH,
+PIO_PIN_10,0);
+../Src/main.c(412): warning:  #188-D: enumerated type mixed with another type
+  			HAL_GPIO_WritePin(
+PIOH,
+PIO_PIN_10,1);
+../Src/main.c(414): warning:  #188-D: enumerated type mixed with another type
+  			HAL_GPIO_WritePin(
+PIOH,
+PIO_PIN_10,0);
+../Src/main.c(426): warning:  #188-D: enumerated type mixed with another type
+  			HAL_GPIO_WritePin(
+PIOH,
+PIO_PIN_10,1);
+../Src/main.c(428): warning:  #188-D: enumerated type mixed with another type
+  			HAL_GPIO_WritePin(
+PIOH,
+PIO_PIN_10,0);
+../Src/main.c(530): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+      angular_velocity = (speed / 3.6) / turning_radius;
+../Src/main.c(534): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+      front_left_speed = angular_velocity * r1/
+_PI/Dwheel*6000;
+../Src/main.c(535): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+      front_right_speed = angular_velocity * r2/
+_PI/Dwheel*6000;
+../Src/main.c(536): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+      rear_left_speed = angular_velocity * r1/
+_PI/Dwheel*6000;
+../Src/main.c(537): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+      rear_right_speed = angular_velocity *  r2/
+_PI/Dwheel*6000;
+../Src/main.c(561): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+      float turning_radius = (speed / 3.6) / tan(angle * M_PI / 180.0);
+../Src/main.c(561): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+      float turning_radius = (speed / 3.6) / tan(angle * 
+_PI / 180.0);
+../Src/main.c: 19 warnings, 0 errors
+linking...
+Program Size: Code=14150 RO-data=458 RW-data=132 ZI-data=2308  
+FromELF: creating hex file...
+"can\can.axf" - 0 Error(s), 19 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.0.1.pack
+                ARM.CMSIS.5.0.1
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.0.1
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F4xx_DFP.1.0.8.pack
+                Keil.STM32F4xx_DFP.1.0.8
+                STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_can
+  D:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include
+  D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.0.1
+Build Time Elapsed:  00:00:03
+</pre>
+</body>
+</html>

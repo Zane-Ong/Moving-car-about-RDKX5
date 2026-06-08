@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="four_wheeled_robot">
+    <!-- 定义常量 -->
+    <xacro:property name="chassis_length" value="0.62"/> <!-- 底盘长度 620mm -->
+    <xacro:property name="chassis_width" value="0.52"/>  <!-- 底盘宽度 520mm -->
+    <xacro:property name="chassis_height" value="0.06"/> <!-- 底盘高度 60mm -->
+    <xacro:property name="chassis_upper_clearance" value="0.195"/> <!-- 上层离地高 195mm -->
+    <xacro:property name="chassis_lower_clearance" value="0.135"/> <!-- 下层离地高 135mm -->
+    <xacro:property name="wheel_radius" value="0.0935"/> <!-- 轮子半径 187mm/2 -->
+    <xacro:property name="wheel_width" value="0.052"/> <!-- 轮子宽度 80mm -->
+    <xacro:property name="wheel_distance_x" value="${chassis_width/2+0.059}"/> <!-- 轮子间距 X方向（底盘长度中点） -->
+    <xacro:property name="wheel_offset_y" value="${chassis_length/2-0.09}"/> <!-- 水平偏移距离 (底盘边缘到轮子中心 = 宽/2 + 0.059) -->
+    <xacro:property name="wheel_ground_clearance" value="${wheel_radius}"/> <!-- 轮子与地面接触 -->
+
+    <!-- 底盘 -->
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="${chassis_width} ${chassis_length} ${chassis_height}"/>
+            </geometry>
+            <origin xyz="0 0 ${chassis_upper_clearance - chassis_height/2}" rpy="0 0 0"/>
+            <material name="blue">
+                <color rgba="0 0 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="${chassis_width} ${chassis_length} ${chassis_height}"/>
+            </geometry>
+            <origin xyz="0 0 ${chassis_upper_clearance - chassis_height/2}" rpy="0 0 0"/>
+        </collision>
+        <inertial>
+            <mass value="10"/> <!-- 假设底盘质量为10kg -->
+            <origin xyz="0 0 ${chassis_upper_clearance - chassis_height/2}" rpy="0 0 0"/>
+            <inertia ixx="0.5" ixy="0" ixz="0" iyy="0.5" iyz="0" izz="0.5"/> <!-- 简单假设惯性矩阵 -->
+        </inertial>
+    </link>
+
+    <!-- 轮子和关节 -->
+    <xacro:macro name="wheel" params="name x y z">
+        <!-- 轮子链接 -->
+        <link name="${name}_link">
+            <visual>
+                <geometry>
+                    <cylinder length="${wheel_width}" radius="${wheel_radius}"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="0 1.5708 0"/> <!-- 垂直于地面 -->
+                <material name="black">
+                    <color rgba="0 0 0 1"/>
+                </material>
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder length="${wheel_width}" radius="${wheel_radius}"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="0 1.5708 0"/>
+            </collision>
+            <inertial>
+                <mass value="1"/> <!-- 假设每个轮子质量为1kg -->
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/> <!-- 简单假设惯性矩阵 -->
+            </inertial>
+        </link>
+
+        <!-- 轮子与底盘关节 -->
+        <joint name="${name}_joint" type="continuous">
+            <parent link="base_link"/>
+            <child link="${name}_link"/>
+            <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+            <axis xyz="0 1 0"/> <!-- 绕Y轴转动 -->
+            <dynamics damping="0.1" friction="0.1"/>
+        </joint>
+    </xacro:macro>
+
+    <!-- 前左轮 -->
+    <xacro:wheel name="front_left_wheel" x="${wheel_distance_x}" y="${wheel_offset_y}" z="${wheel_ground_clearance}"/>
+    <!-- 前右轮 -->
+    <xacro:wheel name="front_right_wheel" x="${wheel_distance_x}" y="-${wheel_offset_y}" z="${wheel_ground_clearance}"/>
+    <!-- 后左轮 -->
+    <xacro:wheel name="rear_left_wheel" x="-${wheel_distance_x}" y="${wheel_offset_y}" z="${wheel_ground_clearance}"/>
+    <!-- 后右轮 -->
+    <xacro:wheel name="rear_right_wheel" x="-${wheel_distance_x}" y="-${wheel_offset_y}" z="${wheel_ground_clearance}"/>
+
+</robot>

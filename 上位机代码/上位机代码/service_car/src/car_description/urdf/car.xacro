@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot_with_sensors">
+    
+    <!-- 引用底盘 URDF -->
+    <xacro:include filename="service_car.urdf"/>
+
+    <!-- 引用雷达 URDF -->
+    <xacro:include filename="lidar.urdf"/>
+
+    <!-- 引用摄像头 URDF -->
+    <!-- <xacro:include filename="robot_camera.urdf"/> -->
+
+</robot>

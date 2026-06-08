@@ -1,0 +1,22 @@
+<root main_tree_to_execute = "MainTree">
+    <BehaviorTree ID="MainTree">
+        <Sequence>
+            <!-- 相关位置坐标设置 -->
+            <SetBlackboard output_key="Home" value="0.0;0.0;0.0;1.0"/>
+            <SetBlackboard output_key="Charge" value="0.0;0.0;0.0;1.0"/>
+            <SetBlackboard output_key="Room_A1" value="-5.6;3.1;-0.7;0.7"/>
+            <SetBlackboard output_key="Room_A2" value="-5.8;-6.4;-0.7;0.7"/>
+            <SetBlackboard output_key="Room_B" value="-5.1;-5.3;-0.7;0.7"/>
+
+            <Sequence>
+                <SubTree ID="MoveRobot" target="Room_A1" />
+            </Sequence>
+        </Sequence>
+    </BehaviorTree>
+
+    <BehaviorTree ID="MoveRobot">
+        <Sequence name="SetGoal">
+            <Nav2Client goal="{target}" />
+        </Sequence>
+    </BehaviorTree>
+</root>
