@@ -1,4 +1,4 @@
-# Moving-car-about-ROS2
+# Moving-car-about-RDKX5
 
 基于地瓜机器人 RDK X5 与 ROS2 的智能移动服务小车项目。仓库包含运行在 RDK X5 上的 ROS2 上位机工作空间、运行在下位机 C 板上的 Keil/MDK-ARM 固件工程，以及 SolidWorks 机械结构模型。
 
